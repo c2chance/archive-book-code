@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<students>
+	<student studID="1">
+		<studName>张三</studName>
+		<studAddress>小寨</studAddress>
+	</student>
+	<student studID="2">
+		<studName>成都</studName>
+		<studAddress>锦里</studAddress>
+	</student>
+</students>

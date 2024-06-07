@@ -1,0 +1,34 @@
+<#import "/car/public/lib.fmk.html" as l>
+    <#assign header>
+        <style>
+            .permission-name {
+                margin-bottom: 10px;
+            }
+
+            .permission-item {
+                margin-left: 8px;
+            }
+        </style>
+    </#assign>
+    <#assign footer>
+        <script type="text/javascript">
+            $(".go-back").unbind("click").bind("click", function() {
+                window.history.go(-1);
+            });
+        </script>
+    </#assign>
+    <#assign breadcrumbs=[{'label':'用户设置'}, {'label': '角色管理', 'href':'/car/roles'}, {'label': '权限查看'}]/>
+    <@l.layout title="权限列表" header=header footer=footer breadcrumbs=breadcrumbs>
+    <div class="col-md-offset-2 col-md-8" style="margin-top: 40px;">
+    <#list permissions as permission>
+        <div>
+            <div class="permission-name">${permission.name}</div>
+            <#list permission.values as dto>
+                <span class="fa-square permission-item">${dto.value}</span>
+            </#list>
+            <hr style= "border-top: dashed; margin-top:5px; margin-bottom:20px; border-width: 1px;" size="3"/>
+        </div>
+    </#list>
+        <button class="btn btn-orange col-md-1 col-md-offset-5 go-back">返&nbsp;&nbsp;回</button>
+    </div>
+</@l.layout>

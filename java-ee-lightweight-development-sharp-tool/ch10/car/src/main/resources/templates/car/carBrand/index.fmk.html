@@ -1,0 +1,225 @@
+<#import "/car/public/lib.fmk.html" as l />
+<#import "/car/public/public.fmk.html" as p />
+<#assign header>
+<style>
+.carbrand-table {
+	margin-top: 20px;
+}
+</style>
+</#assign>
+<#assign footer> <script src="${ctx!}/js/manage/page.js"></script>
+<script>
+    var page = 0;
+    var size = 6;
+
+    function subtract() {
+        page--;
+        if (page < 0) {
+            page = 0
+        }
+        search()
+
+    }
+
+    function query() {
+        page = 0;
+        search()
+    }
+
+    function add() {
+        page++;
+        if (page >= totalPages) {
+            page = totalPages - 1
+        }
+        search()
+    }
+
+    function to(i) {
+        page = i;
+        search();
+    }
+
+    var totalPages =${totalPages};
+    var totalElements =${totalElements};
+    $(document).ready(function () {
+        if (totalPages != 0) {
+            paging()
+        }
+    })
+
+    function search() {
+        var url = "${ctx!}/car/carBrand/query";
+        var name = document.getElementById("name").value;
+        //var number = document.getElementById("number").value;
+        $.get(url, {"page": page, "size": size, "name": name}, function (data) {
+            var carbrands = data.content;
+            totalPages = data.totalPages;
+            totalElements = data.totalElements;
+            $("#body").html("");
+            for (var i = 0; i < carbrands.length; i++) {
+                var commonTime = "";
+                if (carbrands[i].createdAt != null) {
+                    var unixTimestamp = new Date(carbrands[i].createdAt);
+                    var format = function (time, format) {
+                        var t = new Date(time);
+                        var tf = function (i) {
+                            return (i < 10 ? '0' : '') + i
+                        };
+                        return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+                            switch (a) {
+                                case 'yyyy':
+                                    return tf(t.getFullYear());
+                                    break;
+                                case 'MM':
+                                    return tf(t.getMonth() + 1);
+                                    break;
+                                case 'mm':
+                                    return tf(t.getMinutes());
+                                    break;
+                                case 'dd':
+                                    return tf(t.getDate());
+                                    break;
+                                case 'HH':
+                                    return tf(t.getHours());
+                                    break;
+                                case 'ss':
+                                    return tf(t.getSeconds());
+                                    break;
+                            }
+                        })
+                    }
+                    commonTime = format(unixTimestamp, 'yyyy-MM-dd HH:mm:ss')
+                }
+                var carsBrand = "";
+                if (carbrands[i].carsBrand != null) {
+                	carsBrand = carbrands[i].carsBrand;
+                }
+                var name = "";
+                if (carbrands[i].name != null) {
+                    name = carbrands[i].name;
+                }
+                var phone = "";
+                if (carbrands[i].phone != null) {
+                    phone = carbrands[i].phone;
+                }
+                var interest = "";
+                if (carbrands[i].interest != null) {
+                	interest = carbrands[i].interest;
+                }
+                var dept = "";
+                if (carbrands[i].dept != null) {
+                	dept = carbrands[i].dept;
+                }
+                var visitTime = "";
+                if (carbrands[i].beginTime != null) {
+                    visitTime = carbrands[i].beginTime + carbrands[i].endTime;
+                }
+                var description = "";
+                if (carbrands[i].description != null) {
+                    description = carbrands[i].description;
+                }
+                
+                
+                
+       
+                
+                
+                $("#body").append(" <tr>\n" +
+                    "<td class=\"text\">" + carsBrand + "</td>\n" +
+                    "<td class=\"text\">" + name + "</td>\n" +
+                    "<td class=\"text\">" + phone + "</td>\n" +
+                    "<td class=\"text\">" + interest + "</td>\n" +
+                    "<td class=\"text\">" + dept + "</td>\n" +
+                    "<td class=\"text\">" + description + "</td>\n" +
+                    "<td class=\"text\">" + commonTime + "</td>\n" +
+                    "<td class=\"text\">" + visitTime + "</td>" +
+                    "<td class=\"text\"> " +
+                    "<a href=\"${ctx!}/car/carBrand/"+carbrands[i].id+"/edit\" class=\"blue\"> 编辑</a>"+
+                    "<a href=\"javascript:void(0);\" class=\"ml10 blue btn-del\" data-id="+carbrands[i].id+" data-toggle=\"modal\" data-target=\"#deleteModal\">删除</a>" +
+                    "</td>")
+            }
+
+
+            if (totalPages != 0) {
+                paging()
+            } else {
+                $("#page").html("")
+            }
+        })
+    }
+</script> </#assign>
+<#assign breadcrumbs=[{ 'label':'汽车管理'}, {'label': '品牌管理'}] />
+<@l.layout title="汽车管理" header=header footer=footer
+breadcrumbs=breadcrumbs>
+
+<div class="col-md-offset-1 col-md-10">
+    <div class="col-md-8">
+        <div class="col-md-8">
+            <label class="control-label" for="name">姓名:</label>
+            <div class="btn-group">
+                <input type="text" class="form-control" id="name"
+					name="name" placeholder="姓名">
+            </div>
+        </div>
+
+        <!--<div class=" col-md-4">
+            <label class="control-label" for="name">姓名:</label>
+            <div class="btn-group">
+                <input type="text" class="form-control" id="name" name="name" placeholder="姓名">
+            </div>
+        </div>-->
+        <button class="btn btn-default linecons-search blue"
+			onclick="query()">查询</button>
+    </div>
+</div>
+
+
+<div class="col-md-offset-9 col-md-2 mt10">
+    <a class="float-right fa-plus-circle ml15 blue"
+		href="${ctx!}/car/carBrand/new">添加车辆品牌</a>
+</div>
+<div class="col-md-10 col-md-offset-1 carbrand-table">
+    <table class="table table-bordered table-model-2 table-hover">
+        <thead>
+        <tr>
+            <th class="col-md-1">品牌</th>
+            <th class="col-md-1">姓名</th>
+            <th class="col-md-1">手机号</th>
+            <th class="col-md-1">兴趣</th>
+            <th class="col-md-1">单位</th>
+            <th class="col-md-1">说明</th>
+            <th class="col-md-1">退休时间</th>
+            <th class="col-md-1">健身时间段</th>
+            <th class="col-md-1">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+		<tbody id="body">
+        <#list carbrands as carbrand>
+            <tr>
+                <td>${carbrand.carsBrand!''}</td>
+                <td>${carbrand.name!''}</td>
+                <td>${carbrand.phone!''}</td>
+                <td>${carbrand.interest!''}</td>
+                <td>${carbrand.dept!''}</td>
+                <td>${carbrand.description!''}</td>
+                <td>${(carbrand.createdAt?string('YYYY-MM-dd HH:mm:ss'))!''}</td>
+                <td>${carbrand.beginTime!''}${carbrand.endTime!''}</td>
+               <td>
+                    <a href="${ctx!}/car/carBrand/${carbrand.id}/edit"
+					class="blue" onclick="">编辑</a>
+                    <a href="javascript:void(0);"
+					class="ml10 blue btn-del" data-id="${carbrand.id}"
+					data-toggle="modal" data-target="#deleteModal">删除</a>
+                </td>
+        </#list>
+        </tbody>
+    </table>
+    <div style=" bottom:10%" class="col-md-4  col-md-offset-5">
+        <ul class="pagination" id="page"
+			style=" vertical-align:middle;line-height:2">
+        </ul>
+    </div>
+</div>
+</@l.layout>
+<@p.deleteDialog id="deleteModal" url="${ctx!}/car/carBrand"/>

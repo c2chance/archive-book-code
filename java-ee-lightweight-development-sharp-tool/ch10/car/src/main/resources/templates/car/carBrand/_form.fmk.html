@@ -1,0 +1,60 @@
+<div class="form-group">
+	<lable class="col-md-4 col-md-2 control-label" for="carsBrand">
+	<span class="careful">*</span>品牌:</lable>
+	<div class="col-md-5 col-sm-10">
+		<input carbrand="text" class="form-control" name="carsBrand"
+			value="${(carbrand.carsBrand)!}" data-message-maxlength="最多允许50个字符">
+	</div>
+</div>
+<div class="form-group">
+	<lable class="col-md-4 col-md-2 control-label" for="name"> <span
+		class="careful">*</span>姓名:</lable>
+	<div class="col-md-5 col-sm-10">
+		<input carbrand="text" class="form-control" name="name"
+			data-validate="required, maxlength[50]" value="${(carbrand.name)!}"
+			data-message-required="姓名不允许为空" data-message-maxlength="最多允许50个字符">
+	</div>
+</div>
+<div class="form-group">
+	<lable class="col-md-4 col-md-2 control-label" for="phone"> <span
+		class="careful">*</span>手机号:</lable>
+	<div class="col-md-5 col-sm-10">
+		<input carbrand="text" class="form-control phone" name="phone"
+			data-validate="required, maxlength[50]" value="${(carbrand.phone)!}"
+			data-message-required="手机号不允许为空" data-message-maxlength="最多允许50个字符">
+	</div>
+</div>
+<div class="form-group">
+	<lable class="col-md-4 col-md-2 control-label" for="interest">
+	<span class="careful">*</span>兴趣:</lable>
+	<div class="col-md-5 col-sm-10">
+		<input carbrand="text" class="form-control" name="interest"
+			data-validate="required, maxlength[50]"
+			value="${(carbrand.interest)!}" data-message-required="兴趣不允许为空"
+			data-message-maxlength="最多允许50个字符">
+	</div>
+</div>
+<div class="form-group">
+	<lable class="col-md-4 col-md-2 control-label" for="dept"> <span
+		class="careful">*</span>单位:</lable>
+	<div class="col-md-5 col-sm-10">
+		<input carbrand="text" class="form-control" name="dept"
+			data-validate="required, maxlength[50]" value="${(carbrand.dept)!}"
+			data-message-required="单位不允许为空" data-message-maxlength="最多允许50个字符">
+	</div>
+</div>
+<div class="form-group">
+	<lable class="col-md-4 col-md-2 control-label" for="description">
+	<span class="careful">*</span>说明:</lable>
+	<div class="col-md-5 col-sm-10">
+		<textarea class="form-control autogrow" name="description"
+			data-validate="required,maxlength[100]" rows="3"
+			data-message-required="说明不允许为空" data-message-maxlength="最多允许100个字符">${(carbrand.description)!}</textarea>
+	</div>
+</div>
+<div class="col-md-offset-3">
+	<button class="btn btn-orange col-md-1">保存</button>
+	<button class="btn btn-blue col-md-1 ml50" type="button"
+		onclick="javascript:window.location.href='${ctx!}/car/carBrand';">取消
+	</button>
+</div>

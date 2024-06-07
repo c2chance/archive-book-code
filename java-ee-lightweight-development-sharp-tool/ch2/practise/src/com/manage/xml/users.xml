@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+   <user id="1&quot;2">	  
+	   <name>张三</name>
+	   <address />
+   </user>
+   <user>
+	   <id>2</id>
+	   <name>李四</name>
+   </user>
+</users>

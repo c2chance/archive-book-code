@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    
+	<context:component-scan base-package="com.spring" />
+	
+	<!--Setter方式注入-->
+<!-- 	<bean id="studnet" class="com.spring.beans.Studnet">
+		<property name="name" value="张三"></property>
+	</bean> -->
+	
+	
+<!-- 	<bean id="helloSpring" class="com.spring.beans.HelloSpring">
+		<property name="name" value="张三"></property>
+	</bean> -->
+	
+	
+	
+	 <!-- 在spring框架加载时创建
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean" />
+	<bean id="studnetDao" class="com.spring.beans.StudnetDao" primary="true"  lazy-init="true">
+  		<property name="sessionFactory" ref="sessionFactory"></property>
+    </bean> -->
+	
+	<!-- 构造器属性注入
+	<bean id="studnet" class="com.spring.beans.Studnet">
+	    <constructor-arg name="name" value="李四" />
+	</bean>--> 
+	
+	<!-- 构造器注入
+	<bean id="studnetByIndex" class="com.spring.beans.Studnet">
+	    <constructor-arg index="0" value="李四" />
+	</bean>--> 
+</beans>

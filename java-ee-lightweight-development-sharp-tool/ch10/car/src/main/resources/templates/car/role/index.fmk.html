@@ -1,0 +1,59 @@
+<#import "/car/public/lib.fmk.html" as l/>
+<#import "/car/public/public.fmk.html" as p/>
+<#assign header>
+    <style>
+        .role-table {
+            margin-top: 20px;
+        }
+    </style>
+</#assign>
+<#assign footer>
+
+</#assign>
+
+<#assign breadcrumbs=[{'label':'用户设置'}, {'label': '角色权限管理'}]/>
+<@l.layout title="角色权限管理" header=header footer=footer breadcrumbs=breadcrumbs>
+<div class="col-md-offset-9 col-md-2 mt10">
+    <a class="float-right fa-plus-circle ml15 blue" href="${ctx!}/car/roles/new">角色添加</a>
+    <a class="float-right fa-eye blue" href="${ctx!}/car/permissions">权限查看</a>
+</div>
+<div class="col-md-10 col-md-offset-1 role-table">
+    <table class="table table-bordered table-model-2 table-hover">
+        <thead>
+        <tr>
+            <th class="col-md-2">角色名称</th>
+            <th class="col-md-4">描述</th>
+            <th class="col-md-4">权限</th>
+            <th class="col-md-2">操作</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <#list roles as role>
+            <tr>
+                <td>${role.name!''}</td>
+                <td>${role.description!''}</td>
+                <td>
+                    <#list role.permissions as permission>
+                        ${(permission.module)!""}- ${(permission.name)!""}
+                        <#if "${(permission.operation)!''}" !="">
+                            -
+                        </#if>
+                        ${(permission.operation)!""}
+                        <#if permission?has_next>
+                            ,
+                        </#if>
+                    </#list>
+                </td>
+                <td>
+                    <a href="${ctx!}/car/roles/${role.id}/edit" class="blue" onclick="">编辑</a>
+                    <a href="javascript:void(0);" class="ml10 blue btn-del" data-id="${role.id}" data-toggle="modal"
+                       data-target="#deleteModal">删除</a>
+                </td>
+        </#list>
+        </tbody>
+    </table>
+</div>
+</@l.layout>
+<@p.deleteDialog id="deleteModal" url="${ctx!}/car/roles"/>

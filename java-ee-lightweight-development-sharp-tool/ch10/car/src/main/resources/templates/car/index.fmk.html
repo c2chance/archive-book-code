@@ -1,0 +1,38 @@
+<#import "/car/public/lib.fmk.html" as l>
+<#assign header>
+    <style>
+
+    </style>
+</#assign>
+<#assign footer>
+</#assign>
+    <#assign breadcrumbs=[{'label':'欢迎页'}]/>
+<@l.layout title="首页" header=header footer=footer breadcrumbs=breadcrumbs>
+    <div class="col-md-6 col-md-offset-3 mt30 " style="margin-top: 5%">
+    <table class=" col-md-12 col-md-offset-1" style="margin-top: 5%">
+        <tbody>
+       <h4><p class="bg-muted" style="background-color: #f5f8fc ;color: #0c0c0c">基本信息</p></h4>
+        <tr>
+            <td><div style="text-align:right; padding-right:50px" ><h4>软件版本  :</h4></div></td>
+            <td><div style="padding-left:24px"><h4>${versionName}</h4></div></td>
+        </tr>
+
+
+        <tr>
+            <td ><div  style="text-align:right; padding-right:50px" ><h4>操作系统  :</h4></div></td>
+            <td ><div style="padding-left:24px"><h4>${os}</h4></div></td>
+        </tr>
+
+<!--         <tr>
+            <td ><div  style="text-align:right;padding-right:50px"><h4>数据库  :</h4></div></td>
+            <td ><div style="padding-left:24px"><h4>${database}-${databaseVersion}</h4></div></td>
+        </tr> -->
+
+       <tr>
+           <td ><div  style="text-align:right;padding-right:50px;margin-left: -10%;"><h4>程序路径  :</h4></div></td>
+           <td ><div style="padding-left:24px"><h4>${url}</h4></div></td>
+       </tr>
+        </tbody>
+    </table>
+    </div>
+</@l.layout>

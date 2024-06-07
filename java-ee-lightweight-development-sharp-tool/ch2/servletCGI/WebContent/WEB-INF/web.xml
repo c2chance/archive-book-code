@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>chapter3</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>register</servlet-name>
+    <servlet-class>com.javaee.servlet.UserRegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>register</servlet-name>
+    <url-pattern>/userRegister</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  
+  	<!-- Spring配置文件路径 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/applicationContext.xml</param-value>
+	</context-param>
+ 
+  	<!-- 加载Spring配置文件applicationContext.xml -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+  
+	<!-- 自定义监听器 -->
+	<listener>
+	    <listener-class>com.javaee.util.LifeListener</listener-class>
+	</listener>
+  
+
+	<!-- 登录过滤器 -->
+	<filter>
+		<filter-name>LifeFilter</filter-name>
+		<filter-class>com.javaee.util.LifeFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LifeFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+  
+  
+  
+  
+  
+  
+</web-app>

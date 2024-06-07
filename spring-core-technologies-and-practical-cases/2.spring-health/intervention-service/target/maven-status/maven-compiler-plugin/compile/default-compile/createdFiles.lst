@@ -1,0 +1,16 @@
+com\springhealth\intervention\repository\UserInfoRedisRepositoryImpl.class
+com\springhealth\intervention\service\GetUserCommand.class
+com\springhealth\intervention\domain\Intervention.class
+com\springhealth\intervention\config\ServiceConfig.class
+com\springhealth\intervention\controller\InterventionController.class
+com\springhealth\intervention\repository\UserInfoRedisRepository.class
+com\springhealth\intervention\service\InterventionService.class
+com\springhealth\intervention\service\DeviceDiscoveryService.class
+com\springhealth\intervention\client\DeviceServiceClient.class
+com\springhealth\intervention\event\UserInfoChangedEventMapper.class
+com\springhealth\intervention\client\DeviceMapper.class
+com\springhealth\intervention\client\UserMapper.class
+com\springhealth\intervention\repository\InterventionRepository.class
+com\springhealth\intervention\security\SpringHealthResourceServerConfiguration.class
+com\springhealth\intervention\client\UserServiceClient.class
+com\springhealth\intervention\InterventionApplication.class

@@ -1,0 +1,17 @@
+<#import "/car/public/lib.fmk.html" as l/>
+<#assign header>
+    <link rel="stylesheet" href="${ctx!}/css/manage/role/role.css">
+</#assign>
+<#assign footer>
+    <script src="${ctx!}/js/manage/role/role.js"></script>
+</#assign>
+<#assign breadcrumbs=[{'label':'信息管理中心'}, {'label': '短消息','href':'/car/noticeManager'}, {'label': '编辑'}]/>
+<@l.layout title="更新短消息" header=header footer=footer breadcrumbs=breadcrumbs>
+<div class="col-md-10 col-md-offset-1 mt30">
+    <form notice="form" method="post" action="${ctx!}/car/noticeManager" class="form-horizontal validate">
+        <input type="hidden" value="put" name="_method">
+        <input type="hidden" value="${notice.id}" name="id">
+        <#include "./_form.fmk.html"/>
+    </form>
+</div>
+</@l.layout>

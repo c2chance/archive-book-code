@@ -1,0 +1,9 @@
+C:\jetbra\SpringCode\2.spring-health\user-service\src\main\java\com\springhealth\user\event\UserInfoOperation.java
+C:\jetbra\SpringCode\2.spring-health\user-service\src\main\java\com\springhealth\user\repository\UserRepository.java
+C:\jetbra\SpringCode\2.spring-health\user-service\src\main\java\com\springhealth\user\UserApplication.java
+C:\jetbra\SpringCode\2.spring-health\user-service\src\main\java\com\springhealth\user\domain\User.java
+C:\jetbra\SpringCode\2.spring-health\user-service\src\main\java\com\springhealth\user\event\UserInfoChangedEvent.java
+C:\jetbra\SpringCode\2.spring-health\user-service\src\main\java\com\springhealth\user\services\UserService.java
+C:\jetbra\SpringCode\2.spring-health\user-service\src\main\java\com\springhealth\user\security\SpringHealthResourceServerConfiguration.java
+C:\jetbra\SpringCode\2.spring-health\user-service\src\main\java\com\springhealth\user\event\UserInfoChangedSource.java
+C:\jetbra\SpringCode\2.spring-health\user-service\src\main\java\com\springhealth\user\controller\UserController.java

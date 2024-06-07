@@ -1,0 +1,104 @@
+.float-right {
+    float: right !important;
+}
+
+.float-left {
+    float: left !important;
+}
+
+.btn-blue {
+    background-color: #0f88c6 !important;
+}
+
+.blue {
+    color: #0f88c6;
+}
+
+.orange {
+    color: #f69f2f;
+}
+
+.ml5 {
+    margin-left: 5px;
+}
+
+.ml10 {
+    margin-left: 10px;
+}
+
+.ml15 {
+    margin-left: 15px;
+}
+
+.ml25 {
+    margin-left: 25px;
+}
+
+.ml100 {
+    margin-left: 100px;
+}
+
+.ml110 {
+    margin-left: 110px;
+}
+
+.ml50 {
+    margin-left: 50px !important;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mt15 {
+    margin-top: 15px;
+}
+
+.mt30 {
+    margin-top: 30px;
+}
+
+.mt40 {
+    margin-top: 40px;
+}
+
+.mb30 {
+    margin-bottom: 30px;
+}
+
+.mr10 {
+    margin-right: 10px;
+}
+
+.btn {
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+
+.risk {
+    color: red !important;
+}
+
+.careful {
+    color: red !important;
+}
+
+.validate-has-error {
+    color: red !important;
+}
+
+.NEW {
+    color: #2BB86D !important;
+}
+
+.PASS {
+    color: #0F88c6 !important;
+}
+
+.FAIL {
+    color: #D60000 !important;
+}
+
+.center-button {
+    text-align: center
+}

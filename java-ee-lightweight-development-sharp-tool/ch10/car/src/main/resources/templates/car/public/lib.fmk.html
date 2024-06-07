@@ -1,0 +1,489 @@
+<#macro layout title="" header="" footer="" breadcrumbs=[]>
+    <!doctype html>
+    <html>
+    <head>
+        <title>${title}</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <#global ctx=request.contextPath/>
+        <link rel="stylesheet" href="${ctx!}/css/bootstrap.css">
+        <link rel="stylesheet" href="${ctx!}/css/xenon-core.css">
+        <link rel="stylesheet" href="${ctx!}/css/xenon-forms.css">
+        <link rel="stylesheet" href="${ctx!}/css/xenon-components.css">
+        <link rel="stylesheet" href="${ctx!}/css/xenon-skins.css">
+        <link rel="stylesheet" href="${ctx!}/css/custom.css">
+        <link rel="stylesheet" href="${ctx!}/css/platform/platform.css">
+
+        <link rel="stylesheet" href="${ctx!}/js/select2/select2.css">
+        <link rel="stylesheet" href="${ctx!}/js/select2/select2-bootstrap.css">
+        <link rel="stylesheet" href="${ctx!}/js/multiselect/css/multi-select.css">
+        <link rel="stylesheet" href="${ctx!}/js/selectboxit/jquery.selectBoxIt.css">
+        <style>
+            .sidebar-menu {
+                background: url("/images/logo-left.png") bottom;
+            }
+
+            .sidebar-menu, .logo-env {
+                width: 200px;
+            }
+
+            .logo-env {
+                padding: 6px 4px !important;
+                background-color: #146b98;
+                margin-bottom: 10px;
+            }
+
+            .main-menu {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            #main-menu {
+                background-color: rgba(51, 53, 59, 0.1);
+            }
+
+            #main-menu .expanded {
+                background-color: rgba(30, 33, 40, 0.7);
+            }
+
+            #main-menu .expanded span {
+                color: #ffffff;
+            }
+
+            #main-menu span {
+                color: #CCCCCC;
+            }
+
+            .main-footer {
+                padding: 0px !important;
+            }
+
+            .user-info-navbar {
+                background-color: transparent;
+                margin-bottom: 0px;
+            }
+
+            .page-title {
+                padding-top: 6px !important;
+                padding-bottom: 6px !important;
+            }
+
+            .breadcrumb {
+                margin-top: 0;
+                padding-left: 15px;
+                padding-top: 5px;
+            }
+
+            .breadcrumb > li + li:before {
+                content: ">>" !important;
+            }
+
+            .breadcrumb li a {
+                color: #0f88c6;
+            }
+
+            .main-menu li ul li:active {
+                font-weight: bold;
+            }
+
+            .logout-li {
+                height: 55px !important;
+                min-height: 55px !important;
+            }
+        </style>
+        <#escape x as x?html>
+            <#noescape>
+                ${header}
+            </#noescape>
+        </#escape>
+        <script src="${ctx!}/js/jquery-1.11.1.min.js"></script>
+
+        <script type="text/javascript">
+            function logout() {
+                //alert('您已经退出')
+                localStorage.clear();
+                window.location.href = "${ctx!}/car/login/logout";
+            }
+
+            // 加载选中菜单
+            $(document).ready(function () {
+                var admin = "${(Session ['Admin'].username)!''}";
+                if(admin==null || admin ==""){
+                    localStorage.clear();
+                    window.location.href = "${ctx!}/car/login/logout";
+                }
+
+                var show = localStorage.getItem("show");
+                if(show!=null && show !=""){
+                    switch(show)
+                    {
+                        case "USER":
+                            $("#USER").attr("class","opened active");
+                            break;
+                        case "BASE":
+                            $("#BASE").attr("class","opened active");
+                            break;
+                        case "PASS":
+                            $("#PASS").attr("class","opened active");
+                            break;
+                        case "PECCANCY":
+                            $("#PECCANCY").attr("class","opened active");
+                            break;
+                        case "REPORT":
+                            $("#REPORT").attr("class","opened active");
+                            break;
+                        case "TRAFFIC":
+                            $("#TRAFFIC").attr("class","opened active");
+                            break;
+                        case "INFO":
+                            $("#INFO").attr("class","opened active");
+                            break;
+                        case "HOBBYLIST":
+                            $("#HOBBYLIST").attr("class","opened active");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+
+            // 获取菜单、保存
+            function showUser(){
+                localStorage.clear();
+                localStorage.setItem("show","USER");
+            }
+            function showBase(){
+                localStorage.clear();
+                localStorage.setItem("show","BASE");
+            }
+            function showPass(){
+                localStorage.clear();
+                localStorage.setItem("show","PASS");
+            }
+            function showPeccancy(){
+                localStorage.clear();
+                localStorage.setItem("show","PECCANCY");
+            }
+            function showReport(){
+                localStorage.clear();
+                localStorage.setItem("show","REPORT");
+            }
+            function showTraffic(){
+                localStorage.clear();
+                localStorage.setItem("show","TRAFFIC");
+            }
+            function showInfo(){
+                localStorage.clear();
+                localStorage.setItem("show","INFO");
+            }
+            function showHobbyList(){
+                localStorage.clear();
+                localStorage.setItem("show","HOBBYLIST");
+            }
+        </script>
+
+
+    </head>
+    <body class="page-body" style="min-height: 650px">
+    <div class="page-container" style="max-width: 99.99%">
+        <div class="sidebar-menu toggle-others fixed">
+            <div class="sidebar-menu-inner">
+                <header class="logo-env col-md-1">
+                    <!-- logo -->
+                    <div class="logo" style="color: whitesmoke">
+                        <img src="${ctx!}/images/logo.png" style="width: 100%; height: auto;"/>
+                    </div>
+
+                    <div class="mobile-menu-toggle visible-xs">
+                        <a href="#" data-toggle="mobile-menu">
+                            <i class="fa-bars"></i>
+                        </a>
+                    </div>
+                </header>
+
+
+                <ul id="main-menu" class="main-menu" style="">
+                    <li id="USER">
+                        <a href="javascript:void(0);" onclick="showUser()">
+                            <i class="linecons-cog"></i>
+                            <span class="title title-parent">用户设置</span>
+                        </a>
+                        <ul>
+                            <@shiro.hasPermission name="role:*">
+                                <li>
+                                    <a href="${ctx!}/car/roles">
+                                        <span class="title">角色权限管理</span>
+                                    </a>
+                                </li>
+                            </@shiro.hasPermission>
+
+                            <@shiro.hasPermission name="user:*">
+                                <li>
+                                    <a href="${ctx!}/car/users">
+                                        <span class="title">后台账户管理</span>
+                                    </a>
+                                </li>
+                            </@shiro.hasPermission>
+
+                            <@shiro.hasPermission name="driver:*">
+                                <li>
+                                    <a href="${ctx!}/car/drivers;">
+                                        <span class="title">车主信息管理</span>
+                                    </a>
+                                </li>
+                            </@shiro.hasPermission>
+                        </ul>
+                    </li>
+
+                    <li id="BASE">
+                        <a href="javascript:void(0);" onclick="showBase()">
+                            <i class="linecons-desktop"></i>
+                            <span class="title title-parent">基础数据维护</span>
+                        </a>
+                        <ul>
+   
+
+
+                            <@shiro.hasPermission name="gate:*">
+                                <li>
+                                    <a href="${ctx!}/car/schoolGate">
+                                        <span class="title">停车场管理</span>
+                                    </a>
+                                </li>
+                            </@shiro.hasPermission>
+
+
+
+
+
+                            <@shiro.hasPermission name="organization:*">
+                                <li>
+                                    <a href="${ctx!}/car/organization">
+                                        <span class="title">组织机构管理</span>
+                                    </a>
+                                </li>
+                            </@shiro.hasPermission>
+                        </ul>
+                    </li>
+                    <li id="PASS">
+                        <a href="javascript:void(0);" onclick="showPass()">
+                            <i class="linecons-note"></i>
+                            <span class="title title-parent">证件管理</span>
+                        </a>
+                        <ul>
+
+                        </ul>
+                    </li>
+
+                    <li id="PECCANCY">
+                        <a href="javascript:void(0);" onclick="showPeccancy()">
+                             <i class="linecons-mobile"></i>
+                             <span class="title title-parent">违章管理</span>
+                        </a>
+                        <ul>
+                           <@shiro.hasPermission name="peccancy:*">
+                                <li>
+                                    <a href="${ctx!}/car/vehicleViolation">
+                                        <span class="title">违章查询</span>
+                                    </a>
+                                </li>
+                           </@shiro.hasPermission>
+                        </ul>
+                    </li>
+
+                    <li id="REPORT">
+                        <a href="javascript:void(0);" onclick="showReport()">
+                              <i class="linecons-params"></i>
+                              <span class="title title-parent">数据分析</span>
+                        </a>
+                        <ul>
+                            <@shiro.hasPermission name="report-peccancy:*">
+                                 <li>
+                                     <a href="${ctx!}/car/peccancyReport">
+                                          <span class="title">违章统计</span>
+                                     </a>
+                                 </li>
+                            </@shiro.hasPermission>
+                            <@shiro.hasPermission name="report-car:*">
+                                 <li>
+                                      <a href="${ctx!}/car/carReport">
+                                          <span class="title">车辆统计</span>
+                                      </a>
+                                 </li>
+                            </@shiro.hasPermission>
+                            <@shiro.hasPermission name="report-traffic:*">
+                                  <li>
+                                      <a href="${ctx!}/car/trafficReport">
+                                            <span class="title">外来车辆进出统计</span>
+                                      </a>
+                                  </li>
+                            </@shiro.hasPermission>
+                            <@shiro.hasPermission name="report-contrast:*">
+                                  <li>
+                                      <a href="${ctx!}/car/contrastReport">
+                                            <span class="title">对比分析</span>
+                                      </a>
+                                  </li>
+                            </@shiro.hasPermission>
+                        </ul>
+                    </li>
+
+                    <li id="TRAFFIC">
+                        <a href="javascript:void(0);" onclick="showTraffic()">
+                             <i class="linecons-truck"></i>
+                                  <span class="title title-parent">汽车品牌管理</span>
+                        </a>
+                        <ul>
+                            <@shiro.hasPermission name="carBrand:*">
+                            <li>
+                                <a href="${ctx!}/car/carBrand">
+                                    <span class="title">汽车品牌管理</span>
+                                </a>
+                            </li>
+                            </@shiro.hasPermission>
+                        </ul>
+                    </li>
+
+                    <li id="INFO">
+                        <a href="javascript:void(0);" onclick="showInfo()">
+                           <i class="linecons-mail"></i>
+                              <span class="title title-parent">信息管理中心</span>
+                        </a>
+                       <ul>
+                           <@shiro.hasPermission name="notice:*">
+                           <li>
+                               <a href="${ctx!}/car/noticeManager">
+                                   <span class="title">短消息</span>
+                               </a>
+                           </li>
+                           </@shiro.hasPermission>
+                       </ul>
+                    </li>
+
+                    <li id="HOBBYLIST">
+                         <a href="javascript:void(0);" onclick="showHobbyList()">
+                            <i class="linecons-note"></i>
+                                <span class="title title-parent">我的兴趣</span>
+                         </a>
+                          <ul>
+                              <@shiro.hasPermission name="hobbylist:*">
+                              <li>
+                                  <a href="${ctx!}/car/hobbylistManager">
+                                      <span class="title">我的兴趣</span>
+                                  </a>
+                              </li>
+                          </@shiro.hasPermission>
+                          </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <nav class="navbar user-info-navbar" role="navigation">
+                <div style="height: 55px;background: #0f88c6 !important;width: 100%">
+                    <div class="col-md-2">
+                        <!-- <img src="${ctx!}/images/logo.png" style="width: 100%; height: auto; margin-top: 10px;"/> -->
+                    </div>
+                    <!-- Right links for user info navbar -->
+                    <ul class="user-info-menu right-links list-inline list-unstyled">
+                        <li class="dropdown user-profile" style="border-left: none">
+                            <a href="#">
+                            <span>
+								<i class="el-user"
+                                   style="color: white">欢迎您: &nbsp;${(Session ["Admin"].username)!''}</i>
+							</span>
+                            </a>
+                        </li>
+                        <li class="logout-li">
+                            <a href="${ctx!}/car/mine">
+                                <i class="fa fa-user" style="color: white">个人信息</i>
+                            </a>
+                        </li>
+
+                        <li class="logout-li">
+                            <a href="javascript:void(0)" onclick="logout()">
+                                <i class="fa-sign-out" style="color: white">退出系统</i>
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </div>
+                <div style="width: 100%; height: auto">
+
+                </div>
+            </nav>
+            <div class="page-title">
+                <div class="breadcrumb-env float-left">
+                    <ol class="breadcrumb bc-1">
+                        <#if breadcrumbs??>
+                            <#list breadcrumbs as breadcrumb>
+                                <#if breadcrumb?has_next>
+                                    <li>
+                                        <a href="${breadcrumb.href!'#'}">${breadcrumb.label!''}</a>
+                                    </li>
+                                    <#else>
+                                        <li class="active">
+                                            <strong>${breadcrumb.label!''}</strong>
+                                        </li>
+                                </#if>
+                            </#list>
+                        </#if>
+                    </ol>
+                </div>
+            </div>
+            <div style="width: 100%; height: 80%; background-color: white">
+                <div class="row" style="margin-left: 0px; margin-right: 0px; padding: 10px;">
+                    <#nested/>
+                </div>
+            </div>
+            <#include "/car/public/footer.fmk.html"/>
+        </div>
+    </div>
+
+
+    <div class="page-loading-overlay">
+        <div class="loader-2"></div>
+    </div>
+
+    <input type="hidden" value="${__INFO!''}" id="__info"/>
+    <input type="hidden" value="${__WARN!''}" id="__warn"/>
+    <input type="hidden" value="${__ERROR!''}" id="__error"/>
+    <!-- Bottom Scripts -->
+    <script src="${ctx!}/js/bootstrap.min.js"></script>
+    <script src="${ctx!}/js/TweenMax.min.js"></script>
+    <script src="${ctx!}/js/resizeable.js"></script>
+    <script src="${ctx!}/js/joinable.js"></script>
+    <script src="${ctx!}/js/xenon-api.js"></script>
+    <script src="${ctx!}/js/xenon-toggles.js"></script>
+
+
+    <!-- Imported scripts on this page -->
+    <script src="${ctx!}/js/xenon-widgets.js"></script>
+    <script src="${ctx!}/js/devexpress-web-14.1/js/globalize.min.js"></script>
+    <script src="${ctx!}/js/toastr/toastr.min.js"></script>
+
+    <script src="${ctx!}/js/jquery-validate/jquery.validate.min.js"></script>
+    <script src="${ctx!}/js/jquery-validate/localization/messages_zh.js"></script>
+
+    <!-- JavaScripts initializations and stuff -->
+    <script src="${ctx!}/js/xenon-custom.js"></script>
+    <script src="${ctx!}/js/manage/global.js"></script>
+
+    <!--select2-->
+    <script src="${ctx!}/js/select2/select2.min.js"></script>
+    <script src="${ctx!}/js/select2/select2_locale_zh-CN.js"></script>
+    <script src="${ctx!}/js/multiselect/js/jquery.multi-select.js"></script>
+
+    <script src="${ctx!}/js/jquery-ui/jquery-ui.min.js"></script>
+
+    <#escape x as x?html>
+        <#noescape>
+            ${footer}
+        </#noescape>
+    </#escape>
+    </body>
+    </html>
+</#macro>

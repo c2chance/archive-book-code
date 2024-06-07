@@ -1,0 +1,6 @@
+com\springhealth\device\services\DeviceService.class
+com\springhealth\device\controller\DeviceController.class
+com\springhealth\device\repository\DeviceRepository.class
+com\springhealth\device\domain\Device.class
+com\springhealth\device\DeviceApplication.class
+com\springhealth\device\security\SpringHealthResourceServerConfiguration.class

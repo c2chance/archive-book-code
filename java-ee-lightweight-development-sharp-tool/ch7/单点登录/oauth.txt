@@ -1,0 +1,19 @@
+# 客户端id
+# oauth.client.id=ddId
+oauth.client.id=ddId1
+# 客户端密钥
+# oauth.client.secret=97678e1e-f10a-4d03-9752-9685421ba6f3
+oauth.client.secret=ddmy
+# 认证地址
+# oauth.authorize.url=http://sso.项目认证中心.com:9082/sso/profile/oauth2/authorize
+oauth.authorize.url=http://sso.项目认证中心.com:8090/sso/authorize
+# 利用令牌获取地址
+# oauth.accesstoken.url=http://sso.项目认证中心.com:9082/sso/profile/oauth2/accessToken
+oauth.accesstoken.url=http://sso.项目认证中心:8090/sso/getToken
+# 用户信息获取地址
+# oauth.userinfo.url=http://sso.项目认证中心.com:9082/sso/profile/oauth2/profile
+oauth.userinfo.url=http://sso.项目认证中心.com:8090/sso/userinfo
+# 自己系统的回调地址
+callBackUrl=http://127.0.0.1:8080/car/quickLogin
+# callBackUrl=http://127.0.0.1:8080/car/loginsso
+# callBackUrl=http://127.0.0.123:8080/car/quickLogin

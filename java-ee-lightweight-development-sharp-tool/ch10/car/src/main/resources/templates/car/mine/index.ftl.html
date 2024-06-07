@@ -1,0 +1,29 @@
+<#import "/car/public/lib.fmk.html" as l>
+<#assign header>
+    <style>
+
+    </style>
+</#assign>
+<#assign footer>
+</#assign>
+
+<@l.layout title="首页" header=header footer=footer>
+    <table class="table col-md-6">
+        <tbody>
+        <tr>
+            <td>用户名</td>
+            <td>${(Session ["Admin"].username)!''}</td>
+        </tr>
+
+        <tr>
+            <td>手机号</td>
+            <td>${(Session ["Admin"].telephone)!''}</td>
+        </tr>
+
+        <tr>
+            <td>单位</td>
+            <td>${(Session ["Admin"].organization.name)!''}</td>
+        </tr>
+        </tbody>
+    </table>
+</@l.layout>

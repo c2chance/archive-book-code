@@ -1,0 +1,3 @@
+com\springhealth\authserver\security\SpringHealthWebSecurityConfigurer.class
+com\springhealth\authserver\security\SpringHealthAuthorizationServerConfigurer.class
+com\springhealth\authserver\AuthServerApplication.class

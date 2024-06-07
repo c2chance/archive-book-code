@@ -1,0 +1,11 @@
+server:
+  port: 8081 # Eureka实例端口号
+eureka:
+  instance:
+    prefer-ip-address: true  # 主机IP
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/  # Eureka服务端地址
+spring:
+  application:
+    name: shop-eureka-order # 应用名称

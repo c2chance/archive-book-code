@@ -1,0 +1,21 @@
+server:
+  port: 8050 # Eureka实例端口号
+  eureka:
+  instance:
+    prefer-ip-address: true  # 主机IP
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/  # Eureka服务端地址
+spring:
+  application:
+    name: shop-eureka-zuul # 应用名称
+    
+zuul: 
+  routes:
+      order-serviceId: # zuul的唯一标识，必须唯一，如果该值与service-id的名称相同，service-id的值可以省略
+      path: /order/**   # 映射路径
+      service-id: shop-eureka-order  # Eureka中的serviceId
+  #  order-url: 
+  #    path: /order-url/**
+  #    url: http://localhost:7900/
+#  ignored-services:  #表示被忽略的服务，服务将不会被路由解析  

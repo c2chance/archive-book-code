@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SpringBoot模版渲染</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+</head>
+<body>
+    <p th:text="'用户名称：' + ${name}"/>
+    <p th:text="'数学计算：1+2=' + (1 + 2)"/>
+    
+    <div>
+    <p th:text="'品牌名称：' + ${carbrand.carsBrand}"/>
+    <p th:text="'部门：' + ${carbrand.dept}"/>
+    <p th:text="'说明：' + ${carbrand.description}"/>
+   
+   <span th:unless="${16 gt 18}">
+		你还不满18岁，不能够看电影！
+	</span>
+	
+	
+	
+	<span th:switch="${carbrand.dept}">
+		<p th:case="技术部">技术部门人员</p>
+		<p th:case="产品部">产品部门人员</p>
+		<p th:case="*">没有匹配成功的数据！</p>
+	</span>
+	
+   
+       <table>
+        <tr><td>品牌</td><td>部门</td><td>说明</td></tr>
+		<tr th:each="user : ${carbrand}">
+			<td th:text="${user.carsBrand}">Onions</td>
+		    <td th:text="${user.dept}">Onions</td>
+		    <td th:text="${user.description}">2.41</td>
+		</tr>
+    </table>
+   
+</div>
+    
+</body>
+</html>

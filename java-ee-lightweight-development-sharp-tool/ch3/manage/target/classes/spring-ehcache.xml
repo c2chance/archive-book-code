@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/cache
+        http://www.springframework.org/schema/cache/spring-cache-3.2.xsd
+        http://www.springframework.org/schema/aop  
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        ">
+
+	<bean id="ehcache"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache.xml" />
+	</bean>
+
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="ehcache" />
+	</bean>
+
+	<!-- 缓存开关 -->
+	<cache:annotation-driven cache-manager="cacheManager" />
+	
+	<!-- 缓存注解 -->
+	<cache:advice id="cacheAdvice" cache-manager="cacheManager">
+		<cache:caching cache="users">
+			<cache:cacheable method="findGridByCondition2" />
+		</cache:caching>
+	</cache:advice>
+
+	<!-- 缓存映射 -->
+ 	<aop:config proxy-target-class="false">
+		<aop:advisor advice-ref="cacheAdvice"
+			pointcut="execution (* com.manage.platform.service.impl..*.*(..))" />
+	</aop:config>
+</beans>
+    
+
+
+

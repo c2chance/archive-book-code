@@ -1,0 +1,231 @@
+<#import "/car/public/lib.fmk.html" as l/>
+<#import "/car/public/public.fmk.html" as p/>
+<#assign header>
+    <style>
+        .notice-table {
+            margin-top: 20px;
+        }
+    </style>
+</#assign>
+<#assign footer>
+<script src="${ctx!}/js/manage/page.js"></script>
+<script>
+    var page = 0;
+    var size = 6;
+
+    function subtract() {
+        page--;
+        if (page < 0) {
+            page = 0
+        }
+        search()
+
+    }
+
+    function query() {
+        page = 0;
+        search()
+    }
+
+    function add() {
+        page++;
+        if (page >= totalPages) {
+            page = totalPages - 1
+        }
+        search()
+    }
+
+    function to(i) {
+        page = i;
+        search();
+    }
+
+    var totalPages =${totalPages};
+    var totalElements =${totalElements};
+    $(document).ready(function () {
+        if (totalPages != 0) {
+            paging()
+        }
+    })
+
+    function search() {
+        var url = "${ctx!}/car/noticeManager/query";
+        var name = document.getElementById("name").value;
+        //var number = document.getElementById("number").value;
+        $.get(url, {"page": page, "size": size, "name": name}, function (data) {
+            var notices = data.content;
+            totalPages = data.totalPages;
+            totalElements = data.totalElements;
+            $("#body").html("");
+            for (var i = 0; i < notices.length; i++) {
+                var commonTime = "";
+                if (notices[i].createdAt != null) {
+                    var unixTimestamp = new Date(notices[i].createdAt);
+                    var format = function (time, format) {
+                        var t = new Date(time);
+                        var tf = function (i) {
+                            return (i < 10 ? '0' : '') + i
+                        };
+                        return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+                            switch (a) {
+                                case 'yyyy':
+                                    return tf(t.getFullYear());
+                                    break;
+                                case 'MM':
+                                    return tf(t.getMonth() + 1);
+                                    break;
+                                case 'mm':
+                                    return tf(t.getMinutes());
+                                    break;
+                                case 'dd':
+                                    return tf(t.getDate());
+                                    break;
+                                case 'HH':
+                                    return tf(t.getHours());
+                                    break;
+                                case 'ss':
+                                    return tf(t.getSeconds());
+                                    break;
+                            }
+                        })
+                    }
+                    commonTime = format(unixTimestamp, 'yyyy-MM-dd HH:mm:ss')
+                }
+                var title = "";
+                if (notices[i].title != null) {
+                    title = notices[i].title;
+                }
+                var description = "";
+                if (notices[i].description != null) {
+
+                    description = notices[i].description;
+                }
+                $("#body").append(" <tr>\n" +
+                    "<td class=\"text\">" + title + "</td>\n" +
+                    "<td class=\"text\">" + description + "</td>\n" +
+                    "<td class=\"text\">" + commonTime + "</td>\n" +
+                    "<td class=\"text\">" + "admin" + "</td>\n" +
+                    "<td class=\"text\"> " +
+                    "<a href=\"${ctx!}/car/noticeManager/"+notices[i].id+"/edit\" class=\"blue\"> 编辑</a>"+
+                    "<a href=\"javascript:void(0);\" class=\"ml10 blue btn-del\" data-id="+notices[i].id+" data-toggle=\"modal\" data-target=\"#deleteModal\">删除</a>" +
+                    "</td>")
+            }
+            if (totalPages != 0) {
+                paging()
+            } else {
+                $("#page").html("")
+            }
+        })
+    }
+
+
+
+
+
+    var test="";
+    $("#ckball").change(function() {
+        $("input[name='ckb']").each(function() {
+            if(!$(this).prop('checked') == true){
+                $(this).prop('checked', true);
+                //test += $(this).val()+",";
+            }else{
+                $(this).prop('checked', false);
+                //test=""
+            }
+        });
+    });
+
+        function delIds(){
+            $("input[name='ckb']").each(function() {
+                if($(this).prop('checked') == true){
+                    test += $(this).val()+",";
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "${ctx!}/car/noticeManager/deleteIds",
+                data: {
+                    vId: test
+                },
+                success: function (message) {
+                    //location.href = "${ctx!}/car/vehicleViolation";
+                },
+                error: function (e) {
+                    alert("参数异常");
+                }
+            })
+        }
+
+
+
+</script>
+</#assign>
+<#assign breadcrumbs=[{'label':'信息管理中心'}, {'label': '短消息'}]/>
+<@l.layout title="短消息" header=header footer=footer breadcrumbs=breadcrumbs>
+<div class="col-md-offset-1 col-md-10">
+    <div class="col-md-8">
+        <div class="col-md-8">
+            <label class="control-label" for="name">标题:</label>
+            <div class="btn-group">
+                <input type="text" class="form-control" id="name" name="name" placeholder="标题">
+            </div>
+        </div>
+
+        <!--<div class=" col-md-4">
+            <label class="control-label" for="name">姓名:</label>
+            <div class="btn-group">
+                <input type="text" class="form-control" id="name" name="name" placeholder="姓名">
+            </div>
+        </div>-->
+        <button class="btn btn-default linecons-search blue" onclick="query()">查询</button>
+    </div>
+</div>
+
+
+<div class="col-md-offset-9 col-md-2 mt10">
+    <a class="float-right fa-plus-circle ml15 blue" href="${ctx!}/car/noticeManager/new">新建短消息</a>
+<!--
+    <a class="float-right fa-plus-circle ml15 blue" href="javascript:void(0);" onclick="delIds()">删除</a>
+-->
+
+</div>
+<div class="col-md-10 col-md-offset-1 notice-table">
+    <table class="table table-bordered table-model-2 table-hover">
+        <thead>
+        <tr>
+<!--
+            <th class="col-md-2"><input type="checkbox" id="ckball" name="ckball" />标题</th>
+-->
+            <th class="col-md-2">标题</th>
+            <th class="col-md-4">内容</th>
+            <th class="col-md-2">创建时间</th>
+            <th class="col-md-2">创建人</th>
+            <th class="col-md-2">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tbody id="body">
+        <#list notices as notice>
+            <tr>
+
+                <td>${notice.title!''}</td>
+                <td>${notice.description!''}</td>
+                <td>${(notice.createdAt?string('YYYY-MM-dd HH:mm:ss'))!''}</td>
+                <td>admin</td>
+                <td>
+                    <a href="${ctx!}/car/noticeManager/${notice.id}/edit" class="blue" onclick="">编辑</a>
+                    <a href="javascript:void(0);" class="ml10 blue btn-del" data-id="${notice.id}"
+                       data-toggle="modal" data-target="#deleteModal">删除</a>
+                </td>
+        </#list>
+        </tbody>
+    </table>
+    <div style=" bottom:10%" class="col-md-4  col-md-offset-5">
+        <ul class="pagination" id="page" style=" vertical-align:middle;line-height:2.428571 ">
+        </ul>
+    </div>
+</div>
+</@l.layout>
+<@p.deleteDialog id="deleteModal" url="${ctx!}/car/noticeManager"/>

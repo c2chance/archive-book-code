@@ -1,0 +1,8 @@
+com\springhealth\user\controller\UserController.class
+com\springhealth\user\security\SpringHealthResourceServerConfiguration.class
+com\springhealth\user\UserApplication.class
+com\springhealth\user\services\UserService.class
+com\springhealth\user\event\UserInfoChangedEvent.class
+com\springhealth\user\domain\User.class
+com\springhealth\user\repository\UserRepository.class
+com\springhealth\user\event\UserInfoOperation.class

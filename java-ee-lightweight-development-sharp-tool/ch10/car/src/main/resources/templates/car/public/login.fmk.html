@@ -1,0 +1,73 @@
+<#macro layout title="" header="" footer="">
+    <!doctype html>
+    <html>
+    <head>
+        <title>${title}</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="author" content="www.car.com"/>
+        <#global ctx=request.contextPath/>
+        <link rel="stylesheet" href="${ctx!}/css/fonts/linecons/css/linecons.css">
+        <link rel="stylesheet" href="${ctx!}/css/fonts/fontawesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="${ctx!}/css/bootstrap.css">
+        <link rel="stylesheet" href="${ctx!}/css/xenon.css">
+        <link rel="stylesheet" href="${ctx!}/css/xenon-core.css">
+        <link rel="stylesheet" href="${ctx!}/css/xenon-forms.css">
+        <link rel="stylesheet" href="${ctx!}/css/xenon-components.css">
+        <link rel="stylesheet" href="${ctx!}/css/xenon-skins.css">
+        <link rel="stylesheet" href="${ctx!}/css/custom.css">
+        <link rel="stylesheet" href="${ctx!}/css/manage/manage.css">
+        <link rel="stylesheet" href="${ctx!}/css/manage/manage-mobile.css">
+
+        <link rel="stylesheet" href="${ctx!}/js/select2/select2.css">
+        <link rel="stylesheet" href="${ctx!}/js/select2/select2-bootstrap.css">
+        <link rel="stylesheet" href="${ctx!}/js/multiselect/css/multi-select.css">
+        <link rel="stylesheet" href="${ctx!}/js/selectboxit/jquery.selectBoxIt.css">
+
+        <#escape x as x?html>
+            <#noescape>
+                ${header}
+            </#noescape>
+        </#escape>
+        <script src="${ctx!}/js/jquery-1.11.1.min.js"></script>
+    </head>
+    <body class="page-body">
+    <div class="page-container" style="max-width: 100%">
+            <div class="main-content" style="height: 100%">
+                <div class="content-inner" style="width: 100%; height: 80%; position: relative;">
+                        <#nested/>
+                </div>
+                <#include "/car/public/footer.fmk.html"/>
+            </div>
+    </div>
+
+
+    <div class="page-loading-overlay">
+        <div class="loader-2"></div>
+    </div>
+    <!-- Bottom Scripts -->
+    <script src="${ctx!}/js/bootstrap.min.js"></script>
+    <script src="${ctx!}/js/TweenMax.min.js"></script>
+    <script src="${ctx!}/js/resizeable.js"></script>
+    <script src="${ctx!}/js/joinable.js"></script>
+    <script src="${ctx!}/js/xenon-api.js"></script>
+    <script src="${ctx!}/js/xenon-toggles.js"></script>
+
+    <script src="${ctx!}/js/xenon-custom.js"></script>
+    <script src="${ctx!}/js/jquery-validate/jquery.validate.min.js"></script>
+    <script src="${ctx!}/js/jquery-validate/localization/messages_zh.js"></script>
+
+    <link rel="stylesheet" href="${ctx!}/js/select2/select2.css">
+    <link rel="stylesheet" href="${ctx!}/js/select2/select2-bootstrap.css">
+    <!--select2-->
+    <script src="${ctx!}/js/select2/select2.min.js"></script>
+    <script src="${ctx!}/js/select2/select2_locale_zh-CN.js"></script>
+    <#escape x as x?html>
+        <#noescape>
+            ${footer}
+        </#noescape>
+    </#escape>
+    </body>
+    </html>
+</#macro>

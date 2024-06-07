@@ -1,0 +1,207 @@
+<#import "/car/public/lib.fmk.html" as l/>
+<#import "/car/public/public.fmk.html" as p/>
+<#assign header>
+    <style>
+        .role-table {
+            margin-top: 20px;
+        }
+        .text{
+            text-align: center;
+        }
+    </style>
+</#assign>
+<#assign footer>
+   <script src="${ctx!}/js/manage/page.js"></script>
+    <script>
+        var page = 0;
+        var size = 6;
+        function subtract() {
+            page--;
+            if (page < 0) {
+                page = 0
+            }
+            search()
+
+        }
+
+        function add() {
+            page++;
+            if (page >= totalPages) {
+                page = totalPages - 1
+            }
+            search()
+        }
+
+        function to(i) {
+            page = i;
+            search();
+        }
+
+        var totalPages =${totalPages};
+        var totalElements =${totalElements};
+        $(document).ready(function () {
+            if(totalPages!=0){
+                paging()
+            }
+        })
+
+        function search() {
+                var url = "${ctx!}/car/users/userSearch";
+                var username = document.getElementById("username").value;
+                $.get(url, {"page": page, "size": size, "username": username}, function (data) {
+                    var user = data.content;
+                    totalPages = data.totalPages;
+                    totalElements = data.totalElements;
+                    $("#body").html("");
+                    for (var i = 0; i < user.length; i++) {
+                     var username="";
+                     if(user[i].username!=null){
+                         username=user[i].username;
+                     }
+                     var edit= "<td class=\"text\">\n" +
+                         "<a href=\"${ctx!}/car/users/"+user[i].id+"/edit\" class=\"blue\" onclick=\"\">编辑</a>\n" +
+                         "<a href=\"javascript:void(0);\" class=\"ml10 blue btn-del\" data-id="+user[i].id+" data-toggle=\"modal\"\n" +
+                         "data-target=\"#deleteModal\">删除</a>\n" +
+                         "<a href=\"${ctx!}/car/users/"+user[i].id+"/allot\" class=\"blue\" onclick=\"\">分配角色</a>\n" +
+                         "                </td>"
+                     if(user[i].username=='admin'){
+                         edit="<td class=\"text\"></td>"
+                     }
+                     var telephone="";
+                        if(user[i].telephone!=null){
+                            telephone=user[i].telephone;
+                     }
+                     var organization="";
+                        if (user[i].organization!=null){
+                            var organization=user[i].organization.name;
+                        }
+                     var roles="";
+                        if (user[i].roleList!=null){
+                            for (var a=0;a<user[i].roleList.length;a++){
+                                if(a!=user[i].roleList.length-1){
+                                roles+=user[i].roleList[a].name+',';
+                                }else{
+                                    roles+=user[i].roleList[a].name
+                                }
+                            }
+                        }
+                        var commonTime=""
+                        if(user[i].createdAt!=null){
+                            var unixTimestamp = new Date( user[i].createdAt ) ;
+                            var format = function(time, format){
+                                var t = new Date(time);
+                                var tf = function(i){return (i < 10 ? '0' : '') + i};
+                                return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function(a){
+                                    switch(a){
+                                        case 'yyyy':
+                                            return tf(t.getFullYear());
+                                            break;
+                                        case 'MM':
+                                            return tf(t.getMonth() + 1);
+                                            break;
+                                        case 'mm':
+                                            return tf(t.getMinutes());
+                                            break;
+                                        case 'dd':
+                                            return tf(t.getDate());
+                                            break;
+                                        case 'HH':
+                                            return tf(t.getHours());
+                                            break;
+                                        case 'ss':
+                                            return tf(t.getSeconds());
+                                            break;
+                                    }
+                                })
+                            }
+                            commonTime = format(unixTimestamp, 'yyyy-MM-dd HH:mm:ss')
+                        }
+
+                        $("#body").append("<tr > <td class=\"text\">"+username+"</td>\n" +
+                                         "<td class=\"text\">"+telephone+"</td>" +
+                                         "<td class=\"text\">"+organization+"</td>" +
+                                         "<td class=\"text\">"+roles+"</td>" +
+                                        "<td class=\"text\">"+commonTime+"</td>" +edit+
+                                        "</tr>")
+
+                    }
+                    if(totalPages!=0){
+                        paging()
+                    }else{
+                        $("#page").html("")
+                    }
+                })
+        }
+    </script>
+</#assign>
+<#assign breadcrumbs=[{'label':'用户设置'}, {'label': '后台账户管理'}]/>
+<@l.layout title="用户管理" header=header footer=footer breadcrumbs=breadcrumbs>
+    <div class="col-md-12">
+        <div class=" col-md-offset-1 col-md-5 ">
+            <label class="control-label" for="username">帐户名:</label>
+            <div class="btn-group">
+                <input type="text" class="form-control" id="username" name="username" placeholder="帐户名">
+            </div>
+            <button class="btn btn-default linecons-search blue" onclick="search()">查询</button>
+        </div>
+        <div class="col-md-offset-3 col-md-2 mt10">
+            <a class="float-right fa-plus-circle ml15 blue" href="${ctx!}/car/users/add">添加账户</a>
+        </div>
+    </div>
+<div class="col-md-10 col-md-offset-1 role-table">
+    <table class="table table-bordered table-model-2 table-hover">
+        <thead>
+        <tr>
+            <th class="col-md-2 text">账户名</th>
+            <th class="col-md-2 text">联系方式</th>
+            <th class="col-md-2 text">单位</th>
+            <th class="col-md-2 text">所属角色</th>
+            <th class="col-md-2 text">创建时间</th>
+            <th class="col-md-2 text">操作</th>
+        </tr>
+        </thead>
+
+        <tbody id="body">
+        <#list users as user>
+            <tr>
+                <td class="text">${user.username!''}</td>
+                <td class="text">${user.telephone!''}</td>
+                <#if "${user.organization!''}"!="">
+                    <td class="text">
+                        ${user.organization.name!''}
+                    </td >
+                    <#else>
+                    <td >
+                    </td>
+                </#if>
+                <td class="text">
+                    <#list user.roleList as role>
+                        ${role.name!''}
+                        <#if role?has_next>
+                            ,
+                        </#if>
+                    </#list>
+                </td >
+                <td class="text">${(user.createdAt?string('YYYY-MM-dd HH:mm:ss'))!''}</td>
+                <#if "${user.username!''}"=='admin'>
+                    <td></td>
+                </#if>
+                <#if "${user.username!''}"!='admin'>
+                    <td class="text">
+                        <a href="${ctx!}/car/users/${user.id}/edit" class="blue" onclick="">编辑</a>
+                        <a href="javascript:void(0);" class="ml10 blue btn-del" data-id="${user.id}" data-toggle="modal"
+                           data-target="#deleteModal">删除</a>
+                        <a href="${ctx!}/car/users/${user.id}/allot" class="blue" onclick="">分配角色</a>
+                    </td>
+                </#if>
+
+        </#list>
+        </tbody>
+    </table>
+    <div style=" bottom:10%" class="col-md-4  col-md-offset-5" >
+        <ul class="pagination" id="page" style=" vertical-align:middle;line-height:2.428571">
+        </ul>
+    </div>
+</div>
+</@l.layout>
+<@p.deleteDialog id="deleteModal" url="${ctx!}/car/users"/>

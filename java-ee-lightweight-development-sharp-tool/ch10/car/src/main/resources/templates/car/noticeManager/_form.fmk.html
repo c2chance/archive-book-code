@@ -1,0 +1,21 @@
+<div class="form-group">
+    <lable class="col-md-4 col-md-2 control-label" for="name"><span class="risk">*</span>标题:</lable>
+    <div class="col-md-5 col-sm-10">
+        <input notice="text" class="form-control" name="title" data-validate="required, maxlength[60]"
+               value="${(notice.title)!}"
+               data-message-required="标题不允许为空" data-message-maxlength="最多允许60个字符">
+    </div>
+</div>
+<div class="form-group">
+    <lable class="col-md-4 col-md-2 control-label" for="name"><span class="risk">*</span>内容:</lable>
+    <div class="col-md-5 col-sm-10">
+                <textarea class="form-control autogrow" name="description" data-validate="required,maxlength[200]" rows="3"
+                          data-message-required="内容不允许为空" data-message-maxlength="最多允许200个字符">${(notice.description)!}</textarea>
+    </div>
+</div>
+<div class="col-md-offset-3">
+    <button class="btn btn-orange col-md-1">保存</button>
+    <button class="btn btn-blue col-md-1 ml50" type="button"
+            onclick="javascript:window.location.href='${ctx!}/car/noticeManager';">取消
+    </button>
+</div>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<!-- Spring配置文件路径 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+		<!-- <param-value>/WEB-INF/applicationContext.xml</param-value> -->
+	</context-param>
+
+	<!-- 加载Spring配置文件applicationContext.xml -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- 加载项目生命周期的监听类 -->
+	<listener>
+		<listener-class>com.manage.util.LifeListener</listener-class>
+	</listener>
+
+	<servlet>
+		<description>This is the description of my J2EE component</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>testservlet2</servlet-name>
+		<servlet-class>com.manage.report.testservlet2</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>testservlet2</servlet-name>
+		<url-pattern>/testservlet2.servlet</url-pattern>
+	</servlet-mapping>
+
+
+
+	<!-- 配置struts过滤器 -->
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>
+			org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
+		</filter-class>
+	</filter>
+
+
+
+
+
+
+
+
+
+	<!-- 字符集过滤器 -->
+	<filter>
+		<filter-name>encoding</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	
+	
+	
+	
+	
+	
+	 <filter>
+        <filter-name>struts-prepare</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareFilter</filter-class>
+    </filter>
+ 	<filter-mapping>
+        <filter-name>struts-prepare</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <filter>
+        <filter-name>struts-execute</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsExecuteFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>struts-execute</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+	
+	
+	
+	
+	
+
+<!-- 	<filter>
+		<filter-name>struts-cleanup</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ActionContextCleanUp</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts-cleanup</filter-name>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping> -->
+
+
+	<!-- 自定义匿名过滤器 -->
+	<filter>
+		<filter-name>AnonymousFilter</filter-name>
+		<filter-class>com.manage.platform.AnonymousFilter</filter-class>
+		<init-param>
+			<param-name>postfix-list</param-name>
+			<param-value>jsp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>trust-page</param-name>
+			<param-value>/index.jsp,imageHTML.jsp,image.jsp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>welcome-Page</param-name>
+			<param-value>index.jsp</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>AnonymousFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>encoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<mime-mapping>
+		<extension>doc</extension>
+		<mime-type>application/doc</mime-type>
+	</mime-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- 设置超时 -->
+	<session-config>
+		<session-timeout>-1</session-timeout>
+	</session-config>
+	
+	
+	
+	
+	
+	
+	
+	<!-- 登录过滤器 -->
+	<filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>com.manage.platform.LoginFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping>
+
+	<!-- 登录过滤器自定义 -->
+	<filter>
+		<filter-name>LifeFilter</filter-name>
+		<filter-class>com.manage.util.LifeFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>LifeFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+
+
+
+<!-- OpenSessionInViewFilter，配置次功能可以延时加载，即保持会话随事件开启 -->
+
+  <filter>
+    <filter-name>OpenSessionInViewFilter</filter-name>
+    <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>OpenSessionInViewFilter</filter-name>
+    <url-pattern>*.action</url-pattern>
+  </filter-mapping>
+
+
+
+
+
+
+
+
+
+
+	
+	
+<!-- 	<filter>
+		<filter-name>sessionFilter</filter-name>
+		<filter-class>com.manage.platform.SessionFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>sessionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>  
+	 -->
+	
+</web-app>

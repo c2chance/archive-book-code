@@ -1,0 +1,48 @@
+<#import "/car/public/lib.fmk.html" as l />
+<#assign header>
+<link rel="stylesheet" href="${ctx!}/css/manage/role/role.css">
+</#assign>
+<#assign footer> <script src="${ctx!}/js/manage/role/role.js"></script>
+<script>
+	$(document)
+			.ready(
+					function() {
+						jQuery.validator
+								.addMethod(
+										"carnum",
+										function(value, element) {
+											return this.optional(element)
+													|| /^([\u4e00-\u9fa5][a-zA-Z](([DF](?![a-zA-Z0-9]*[IO])[0-9]{4,5})|([0-9]{5}[DF])))|([冀豫云辽黑湘皖鲁苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼渝京津沪新京军空海北沈兰济南广成使领A-Z]{1}[a-zA-Z0-9]{5,6}[a-zA-Z0-9挂学警港澳]{1})$/
+															.test(value);
+										}, "请输入正确格式的品牌");
+						jQuery.validator
+								.addMethod(
+										"passwordVa",
+										function(value, element) {
+											return this.optional(element)
+													|| /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,30}$/
+															.test(value);
+										}, "必须是字母和数字的组合，最短6位，最长不要超过30位");
+						jQuery.validator
+								.addMethod(
+										"phones",
+										function(value, element) {
+											return this.optional(element)
+													|| /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/
+															.test(value);
+										}, "请输入正确的手机号");
+					});
+</script> </#assign>
+<#assign breadcrumbs=[{
+	'label':'基础数据维护'}, {'label': '汽车品牌管理','href':'/car/foreignCar'}, {'label': '编辑'}] />
+<@l.layout title="更新汽车品牌管理" header=header footer=footer breadcrumbs=breadcrumbs>
+
+<div class="col-md-10 col-md-offset-1 mt30">
+    <form carbrand="form" method="post" action="${ctx!}/car/carBrand"
+		class="form-horizontal validate">
+        <input type="hidden" value="put" name="_method">
+        <input type="hidden" value="${carbrand.id}" name="id">
+        <#include "./_form.fmk.html"/>
+    </form>
+</div>
+</@l.layout>

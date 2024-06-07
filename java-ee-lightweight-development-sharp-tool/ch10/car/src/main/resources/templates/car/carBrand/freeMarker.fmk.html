@@ -1,0 +1,58 @@
+<html>  
+<head>  
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+<title>FreeMarker</title>  
+</head>  
+<body>  
+    <h1>${name}！</h1>  
+    <h1>字符串截取：${name[3]}</h1>  
+    
+<!-- 加减乘除运算 -->    
+<#assign number1 = 20 />
+<#assign number2 = 10 />
+加法 : ${number1 + number2}
+减法 : ${number1 - number2}
+乘法 : ${number1 * number2}
+除法 : ${number1 / number2}
+取余 : ${number1 % number2} 
+
+</br>
+内建函数：
+<#assign data = "test123">
+第一个字母大写：${data?cap_first}
+所有字母小写：${data?lower_case}
+所有字母大写：${data?upper_case}
+
+</br>
+Map集合：
+<#assign mapData={"name":"架构师", "工资":35000}>
+直接通过Key获取 Value值：${mapData["name"]}
+通过Key遍历Map：
+<#list mapData?keys as key>
+Key: ${key} - Value: ${mapData[key]}
+</#list>
+通过Value遍历Map：
+<#list mapData?values as value>
+Value: ${value}
+</#list>
+
+
+</br>
+List集合：
+<#assign listData=["ITDragon", "blog", "is", "cool"]>
+<#list listData as value>${value} </#list>
+
+
+</br>
+macro宏指令：
+<#macro wb>
+定义无参数的宏macro--${name}
+</#macro>
+使用宏macro: <@wb />
+<#macro wbArgs a b c>
+定义带参数的宏macro-- ${a+b*c}
+</#macro>
+使用带参数的宏macro: <@wbArgs a=30 b=1 c=2 />
+
+</body>  
+</html>  

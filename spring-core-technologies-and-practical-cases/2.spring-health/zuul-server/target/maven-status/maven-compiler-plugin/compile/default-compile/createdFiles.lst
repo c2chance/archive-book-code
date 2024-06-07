@@ -1,0 +1,4 @@
+com\springhealth\zuulserver\ZuulServerApplication.class
+com\springhealth\zuulserver\filter\TraceFilter.class
+com\springhealth\zuulserver\filter\RequestLogFilter.class
+com\springhealth\zuulserver\filter\ResponseServiceNameFilter.class
