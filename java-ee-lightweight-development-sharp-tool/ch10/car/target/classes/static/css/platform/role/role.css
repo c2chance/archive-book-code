@@ -1,0 +1,4 @@
+input.role-checkbox-all, input.role-checkbox-group, input.role-checkbox-item {
+    vertical-align: middle;
+    margin-top: -3px;
+}

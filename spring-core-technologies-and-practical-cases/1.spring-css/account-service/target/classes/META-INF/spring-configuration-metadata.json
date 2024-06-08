@@ -1,0 +1,48 @@
+{
+  "groups": [
+    {
+      "name": "management.endpoint.account",
+      "type": "com.springcss.account.endpoint.AccountEndpoint",
+      "sourceType": "com.springcss.account.endpoint.AccountEndpoint"
+    },
+    {
+      "name": "management.endpoint.mysystem",
+      "type": "com.springcss.account.endpoint.MySystemEndpoint",
+      "sourceType": "com.springcss.account.endpoint.MySystemEndpoint"
+    },
+    {
+      "name": "springcss.points",
+      "type": "com.springcss.account.SpringCssConfig",
+      "sourceType": "com.springcss.account.SpringCssConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.endpoint.account.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable the account endpoint.",
+      "sourceType": "com.springcss.account.endpoint.AccountEndpoint",
+      "defaultValue": true
+    },
+    {
+      "name": "management.endpoint.mysystem.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "com.springcss.account.endpoint.MySystemEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.mysystem.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable the mysystem endpoint.",
+      "sourceType": "com.springcss.account.endpoint.MySystemEndpoint",
+      "defaultValue": true
+    },
+    {
+      "name": "springcss.points.points",
+      "type": "java.util.Map<java.lang.String,java.lang.Integer>",
+      "sourceType": "com.springcss.account.SpringCssConfig"
+    }
+  ],
+  "hints": []
+}

@@ -1,0 +1,51 @@
+<div class="form-group">
+    <lable class="col-md-4 col-md-2 control-label" for="name"><span class="risk">*</span>角色名称:</lable>
+    <div class="col-md-5 col-sm-10">
+        <input type="text" class="form-control" name="name" data-validate="required,maxlength[60]" id="name"
+               value="${(role.name)!}"
+               data-message-required="名称不允许为空"
+               data-message-maxlength="最多允许60个字符">
+    </div>
+</div>
+<div class="form-group">
+    <lable class="col-md-4 col-md-2 control-label" for="name">角色描述:</lable>
+    <div class="col-md-5 col-sm-10">
+                <textarea class="form-control autogrow" name="description" data-validate="maxlength[200]" rows="3"
+                          data-message-maxlength="最多允许200个字符">${(role.description)!}</textarea>
+    </div>
+</div>
+<div class="form-group">
+    <lable class="col-md-4 col-md-2 control-label" for="name"><span class="risk">*</span>权限:</lable>
+    <span id="rolespan" style="color: red"></span>
+    <div class="col-md-5 col-sm-10 mt10 permissions">
+        <div class="check-all">
+            <label>
+                <input type="checkbox" class="role-checkbox-all">全选
+            </label>
+            <hr style="border-top: dashed; margin-top:5px; margin-bottom:20px; border-width: 1px;" size="3"/>
+        </div>
+        <#list permissions as permission>
+            <div class="role-group">
+                <div class="permission-name">
+                    <label>
+                        <input type="checkbox" class="role-checkbox-group">${permission.name}
+                    </label>
+                </div>
+                <#list permission.values as dto>
+                    <label class="permission-item">
+                        <span>&emsp;</span><input type="checkbox" class="role-checkbox-item" name="permissions"
+                                                  value="${dto.key}">${dto.value}
+                    </label>
+                </#list>
+                <hr style="border-top: dashed; margin-top:5px; margin-bottom:20px; border-width: 1px;"
+                    size="3"/>
+            </div>
+        </#list>
+    </div>
+</div>
+<div class="col-md-offset-3">
+    <button class="btn btn-orange col-md-1" onclick="return check1()">保存</button>
+    <button class="btn btn-blue col-md-1 ml50" type="button"
+            onclick="javascript:window.location.href='${ctx!}/car/roles';">取消
+    </button>
+</div>

@@ -1,0 +1,56 @@
+<#import "/car/public/lib.fmk.html" as l/>
+<#assign header>
+    <link rel="stylesheet" href="${ctx!}/css/manage/role/role.css">
+    <style type="text/css">
+        .row{
+            margin-bottom: 5%;
+        }
+    </style>
+</#assign>
+<#assign footer>
+    <script src="${ctx!}/js/manage/role/role.js"></script>
+    <script>
+
+        function check1() {
+            $("#rolespan").text("")
+            if($("#name").val()===null ||$("#name").val()===""){
+                return true
+            }
+            if($("input[type='checkbox']:checked").length==0){
+                $("#rolespan").text("角色权限为必选项，请重新勾选")
+                return false
+            }
+
+        }
+        $(function() {
+            var size = "${((role.permissions)![])?size}";
+
+            if(size <= 0) {
+                return;
+            }
+
+
+            var perms = $(".role-checkbox-item");
+        <#if role?? && role.permissions ??>
+        <#list role.permissions as permission>
+            $.each(perms, function(index, item) {
+                var $item = $(item);
+                if(${permission.id} == $item.val()) {
+                    $item.prop("checked", true);
+                    $item.trigger('change');
+                    return;
+                }
+            });
+        </#list>
+            </#if>
+        });
+    </script>
+</#assign>
+<#assign breadcrumbs=[{'label':'用户设置'}, {'label': '角色权限管理', 'href':'/car/roles'}, {'label': '新增'}]/>
+<@l.layout title="新建角色" header=header footer=footer breadcrumbs=breadcrumbs>
+<div class="col-md-10 col-md-offset-1 mt30">
+    <form role="form" method="post" action="${ctx!}/car/roles" class="form-horizontal validate">
+        <#include "./_form.fmk.html"/>
+    </form>
+</div>
+</@l.layout>

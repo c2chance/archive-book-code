@@ -1,0 +1,39 @@
+<#macro deleteDialog id url=''>
+<div class="modal fade" id="${id}">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title">警告</h4>
+			</div>
+
+			<div class="modal-body">请确认是否删除该记录？</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-info btn-del-confirm">确认</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="application/javascript">
+	
+        $(function () {
+            $("#" + "${id}").bind("show.bs.modal", function(evt) {
+                var id = $(evt.relatedTarget).data("id");
+                $(this).find('button.btn-del-confirm').on('click', function () {
+                    $(this).prop('disabled', true);
+                    var $input = $("<input>").attr("type", "hidden").attr("name", "_method").val("delete");
+                    $("<form/>")
+                        .attr("action", "${url}/" + id)
+                        .attr("method", 'post')
+                        .append($input)
+                        .appendTo($("body"))
+                        .submit();
+                    $(this).prop('disabled', false);
+                });
+            });
+        });
+
+</script> </#macro>
